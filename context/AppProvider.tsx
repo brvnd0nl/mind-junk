@@ -15,8 +15,8 @@ export const AppContextProvider = ({ children }: props) => {
 
     const [arrayNotes, getArrayNotes] = useState<ArrayNotes[] | undefined>([]);
 
-    const getNotes = () => {
-
+    const getNotes = async () => {
+        const response = JSON.parse(localStorage.getItem("names") || "");
     };
 
     return(
