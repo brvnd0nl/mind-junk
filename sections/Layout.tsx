@@ -1,14 +1,10 @@
-import type { NextComponentType } from "next";
+import { props } from "../interfaces";
 import Head from "next/head";
 import Header from "./Header";
 import Footer from "./Footer";
 import React from "react";
 
-type LayoutProps = {
-  children: React.ReactNode;
-};
-
-const Layout: React.FC<LayoutProps> = ({ children }) => {
+const Layout: React.FC<props> = ({ children }) => {
   return (
     <>
       <Head>
