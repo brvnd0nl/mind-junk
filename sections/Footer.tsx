@@ -1,6 +1,4 @@
-import type { NextPage } from "next";
-
-const Footer: NextPage = () => {
+const Footer = () => {
   return (
     <>
       <footer className="py-6 text-center text-gray-500 text-sm">

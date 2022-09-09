@@ -1,9 +1,8 @@
 import { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
-import type { NextPage } from "next";
 import Link from "next/link";
 
-const Header: NextPage = () => {
+const Header = () => {
   const [mounted, setMounted] = useState(false);
 
   const { systemTheme, theme, setTheme } = useTheme();
@@ -21,8 +20,6 @@ const Header: NextPage = () => {
     if (!mounted) return null;
 
     const currentTheme = theme === "system" ? systemTheme : theme;
-
-    console.log('tema', currentTheme);
 
     if (currentTheme === "dark") {
       return (
