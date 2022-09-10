@@ -1,14 +1,13 @@
 import moment from "moment";
 import { useState, useEffect } from "react";
 import { useAppContext } from "../context/AppContext";
-import { formatearFecha } from "../helpers";
 import { NoteComponentsProps } from "../interfaces";
 
 const NoteComponent: React.FC<NoteComponentsProps> = ({ data }) => {
   const [timeAgo, setTimeAgo] = useState("");
   const [interval, setIntervalState] = useState<NodeJS.Timer>();
 
-  const {getNoteEdit, setIsEdited} = useAppContext();
+  const { getNoteEdit, setIsEdited } = useAppContext();
 
   const TIMEOUT_NOTES_REFRESH = 60000;
 
@@ -27,7 +26,6 @@ const NoteComponent: React.FC<NoteComponentsProps> = ({ data }) => {
     setTimeout(() => {
       getNoteEdit(data);
     }, 20);
-
   };
 
   const handleDelete = () => {
@@ -45,7 +43,7 @@ const NoteComponent: React.FC<NoteComponentsProps> = ({ data }) => {
           <p className="text-justify">{data.description}</p>
         </div>
         <div className="self-center">
-          <p>{`${formatearFecha(data.dateCreated)}`}</p>
+          <p>{`${moment(data.dateCreated).format("DD/MM/YYYY HH:mm")}`}</p>
           <p className="text-gray-400 float-right">{`${timeAgo}`}</p>
         </div>
         <div className="flex flex-row justify-between gap-3">

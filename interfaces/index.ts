@@ -13,14 +13,24 @@ export interface Note {
     dateCreated: number
 }
 
+export interface Notification {
+    type: string,
+    title: string,
+    body: string,
+    timeout: number
+}
+
 export interface AppContextType {
     arrayNotes: Array<Note>,
     note: Note,
     isEdited: boolean,
     isDeleted: boolean,
+    showNotification: boolean,
+    notificationData: Notification,
     createNote: (note: Note) => void,
     getNoteEdit: (note: Note) => void,
     editNote: (note: Note) => void,
     setIsEdited: React.Dispatch<React.SetStateAction<Boolean>>,
-    setIsDeleted: React.Dispatch<React.SetStateAction<Boolean>>
+    setIsDeleted: React.Dispatch<React.SetStateAction<Boolean>>,
+    notificationHandler: (notification: Notification) => void
 }
