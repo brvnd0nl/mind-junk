@@ -8,7 +8,6 @@ const ResultHistory = () => {
   const indexOfLastNote = currentPage * notesPerPage;
   const indexOfFisrtNote = indexOfLastNote - notesPerPage;
   const currentNotes = arrayNotes.length > notesPerPage ? arrayNotes.slice(indexOfFisrtNote, indexOfLastNote) : arrayNotes;  
-  console.log("🚀 ~ file: ResultHystory.tsx ~ line 11 ~ ResultHistory ~ currentNotes", currentNotes)
 
   
 
