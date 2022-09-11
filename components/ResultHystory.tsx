@@ -8,7 +8,19 @@ const ResultHistory = () => {
   const indexOfLastNote = currentPage * notesPerPage;
   const indexOfFisrtNote = indexOfLastNote - notesPerPage;
   const currentNotes = arrayNotes.length > notesPerPage ? arrayNotes.slice(indexOfFisrtNote, indexOfLastNote) : arrayNotes;  
+  console.log("🚀 ~ file: ResultHystory.tsx ~ line 11 ~ ResultHistory ~ currentNotes", currentNotes)
 
+  
+
+  if(currentNotes.length < 1){
+    return(
+      <>
+        <div className="flex flex-col items-center sm:items-start gap-4 rounded-xl p-5">
+          <h1 className="text-4xl font-semibold">Lo sentimos, no encontramos lo que estaba buscando 😥😓</h1>
+        </div>
+      </>
+    );
+  }
 
   return (
     <>
