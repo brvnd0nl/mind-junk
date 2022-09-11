@@ -1,7 +1,8 @@
-import { FormEvent, useState } from "react";
+import { FormEvent } from "react";
+import { useAppContext } from "../context/AppContext";
 
 const SearchHistory = () => {
-    // const [] = useState("");
+    const {searchNotes, setSearchNotes} = useAppContext();
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
         
@@ -18,7 +19,9 @@ const SearchHistory = () => {
                 <input
                     className="bg-gray-200 dark:bg-gray-700 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-700 dark:placeholder-gray-400 dark:text-gray-300 dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     type="text"
-                    name="artist"                    
+                    name="artist" 
+                    value={searchNotes}
+                    onChange={(e) => setSearchNotes(e.target.value)}                   
                 ></input>
                 </div>
                 <div className="mb-1">

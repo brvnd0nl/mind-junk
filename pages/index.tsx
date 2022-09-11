@@ -1,4 +1,5 @@
 import type { NextPage } from 'next';
+import Pagination from '../components/Pagination';
 import ResultHistory from '../components/ResultHystory';
 import SearchHistory from '../components/SearchHistory';
 import FormNotes from '../sections/FormNotes';
@@ -13,6 +14,7 @@ const Home: NextPage = () => {
         </div>
         <div className="col-span-1 sm:col-span-12">
           <ResultHistory />
+          <Pagination />
         </div>
       </section>
     </>
