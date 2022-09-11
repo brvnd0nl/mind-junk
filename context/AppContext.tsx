@@ -3,6 +3,9 @@ import { AppContextType, Note, Notification, props } from "../interfaces";
 
 export const AppContext = createContext({});
 
+export const isMobileDevice = () =>
+  /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
 export const useAppContext = () => {
   const context = useContext(AppContext) as AppContextType;
 
@@ -166,6 +169,7 @@ export const AppContextProvider = ({ children }: props) => {
         notificationHandler,
         changePageNotes,
         setSearchNotes,
+        isMobileDevice,
       }}
     >
       {children}
