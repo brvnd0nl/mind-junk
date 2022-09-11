@@ -13,11 +13,15 @@ export const useAppContext = () => {
 };
 
 export const AppContextProvider = ({ children }: props) => {
-  const [arrayNotes, setArrayNotes] = useState<Array<Note>>([]);
-  const [note, setNote] = useState<Note>();
+  const [loading, setLoading] = useState(false);
   const [isEdited, setIsEdited] = useState(false);
   const [isDeleted, setIsDeleted] = useState(false);
   const [showNotification, setShowNotification] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [notesPerPage, setNotesPerPage] = useState(4);
+  const [searchNotes, setSearchNotes] = useState("");
+  const [note, setNote] = useState<Note>();
+  const [arrayNotes, setArrayNotes] = useState<Array<Note>>([]);
   const [notificationData, setNotificationData] = useState<Notification>({
     title: "",
     body: "",
@@ -48,13 +52,15 @@ export const AppContextProvider = ({ children }: props) => {
     setIsEdited(true);
   };
 
-  const handleDeleteNote = (id: string) => {
+  const deleteNote = (id: string) => {
     const newArrayNotes = arrayNotes.filter((item) => item.id !== id);
 
     setArrayNotes(newArrayNotes);
+
     const time = setTimeout(() => {
       setNotesLocalStorage();
     }, 100);
+
     notificationHandler({
       ...notificationData,
       title: "Note Deleted",
@@ -62,16 +68,17 @@ export const AppContextProvider = ({ children }: props) => {
       type: "success",
     });
 
-    clearTimeout(time);
+    // clearTimeout(time);
   };
 
   const editNote = (data: Note) => {
-    const newNotes = arrayNotes.map((item) => {
+    const newArrayNotes = arrayNotes.map((item) => {
       if (item.id === data.id) return data;
       return item;
     });
 
-    setArrayNotes(newNotes);
+    setArrayNotes(newArrayNotes);
+
     const time = setTimeout(() => {
       setNotesLocalStorage();
     }, 100);
@@ -92,6 +99,15 @@ export const AppContextProvider = ({ children }: props) => {
     const time = setTimeout(() => {
       setShowNotification(true);
     }, 20);
+  };
+
+  const changePageNotes = (newPage: number) => {
+    const totalPagesNotes = Math.ceil(arrayNotes.length / notesPerPage);
+    if (newPage > totalPagesNotes) {
+      return;
+    }
+
+    setCurrentPage(newPage);
   };
 
   useEffect(() => {
@@ -115,6 +131,20 @@ export const AppContextProvider = ({ children }: props) => {
     }
   }, [showNotification]);
 
+  useEffect(() => {
+    if (!searchNotes) {
+      const sessionNotes =
+        JSON.parse(localStorage.getItem("notes") as string) ??
+        ([] as Array<Note>);
+      if (sessionNotes.length > 0) setArrayNotes(sessionNotes);
+    } else {
+      const newArray = arrayNotes.filter((item) =>
+        item.title.toLowerCase().includes(searchNotes)
+      );
+      setArrayNotes(newArray);
+    }
+  }, [searchNotes]);
+
   return (
     <AppContext.Provider
       value={{
@@ -124,12 +154,18 @@ export const AppContextProvider = ({ children }: props) => {
         isDeleted,
         showNotification,
         notificationData,
+        currentPage,
+        notesPerPage,
+        searchNotes,
         createNote,
         getNoteEdit,
         editNote,
+        deleteNote,
         setIsEdited,
         setIsDeleted,
         notificationHandler,
+        changePageNotes,
+        setSearchNotes,
       }}
     >
       {children}

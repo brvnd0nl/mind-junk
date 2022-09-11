@@ -27,10 +27,16 @@ export interface AppContextType {
     isDeleted: boolean,
     showNotification: boolean,
     notificationData: Notification,
+    currentPage: number,
+    notesPerPage: number,
+    searchNotes: string,
     createNote: (note: Note) => void,
     getNoteEdit: (note: Note) => void,
     editNote: (note: Note) => void,
+    deleteNote: (idNote: string) => void,
     setIsEdited: React.Dispatch<React.SetStateAction<Boolean>>,
     setIsDeleted: React.Dispatch<React.SetStateAction<Boolean>>,
-    notificationHandler: (notification: Notification) => void
+    notificationHandler: (notification: Notification) => void,
+    changePageNotes: (newPage: number) => void
+    setSearchNotes: React.Dispatch<React.SetStateAction<string>>,
 }

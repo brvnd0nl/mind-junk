@@ -7,7 +7,7 @@ const NoteComponent: React.FC<NoteComponentsProps> = ({ data }) => {
   const [timeAgo, setTimeAgo] = useState("");
   const [interval, setIntervalState] = useState<NodeJS.Timer>();
 
-  const { getNoteEdit, setIsEdited } = useAppContext();
+  const { getNoteEdit, setIsEdited, deleteNote } = useAppContext();
 
   const TIMEOUT_NOTES_REFRESH = 60000;
 
@@ -32,6 +32,7 @@ const NoteComponent: React.FC<NoteComponentsProps> = ({ data }) => {
     if (confirm("Are you sure about that")) {
       console.log("eliminando...");
       clearInterval(interval);
+      deleteNote(data.id);
     }
   };
 
