@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { AppContextType, Note, Notification, props } from "../interfaces";
+import { isMobile } from 'react-device-detect';
 
 export const AppContext = createContext({});
 
@@ -18,7 +19,7 @@ export const AppContextProvider = ({ children }: props) => {
   const [isDeleted, setIsDeleted] = useState(false);
   const [showNotification, setShowNotification] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [notesPerPage, setNotesPerPage] = useState(4);
+  const [notesPerPage, setNotesPerPage] = useState(isMobile ? 2 : 4);
   const [searchNotes, setSearchNotes] = useState("");
   const [note, setNote] = useState<Note>();
   const [arrayNotes, setArrayNotes] = useState<Array<Note>>([]);
