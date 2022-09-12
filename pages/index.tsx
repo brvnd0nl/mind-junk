@@ -1,20 +1,21 @@
 import type { NextPage } from "next";
+import { BrowserView, MobileView } from "react-device-detect";
 import Pagination from "../components/Pagination";
 import ResultHistory from "../components/ResultHystory";
 import SearchHistory from "../components/SearchHistory";
-import { useAppContext } from "../context/AppContext";
 import FormNotes from "../sections/FormNotes";
 
 const Home: NextPage = () => {
-  const { isMobileDevice } = useAppContext();
+  const isMobileDevice = false;
   return (
     <>
       <section className="grid grid-flow-row grid-cols-1 gap-5 m-5 sm:grid-flow-col sm:gap-20 sm:grid-cols-2">
         <div className="flex flex-col gap-2 sm:gap-4">
-          {isMobileDevice() ? (
-            <details
-              className="bg-gray-200 dark:bg-gray-700 shadow rounded group mb-4"
-            >
+          <BrowserView>
+            <SearchHistory />
+          </BrowserView>
+          <MobileView>
+            <details className="bg-gray-200 dark:bg-gray-700 shadow rounded group mb-4">
               <summary
                 className="list-none flex flex-wrap items-center cursor-pointer
     focus-visible:outline-none focus-visible:ring focus-visible:ring-pink-500
@@ -36,12 +37,7 @@ const Home: NextPage = () => {
                 <SearchHistory />
               </div>
             </details>
-          ) : (
-            <SearchHistory />
-          )}
-          {/* <div className="hidden w-full md:block md:w-auto">
-            
-          </div> */}
+          </MobileView>
           <FormNotes />
         </div>
         <div className="col-span-1 sm:col-span-4 xl:col-span-11 ">

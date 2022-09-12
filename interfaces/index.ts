@@ -39,6 +39,5 @@ export interface AppContextType {
     notificationHandler: (notification: Notification) => void,
     changePageNotes: (newPage: number) => void
     setSearchNotes: React.Dispatch<React.SetStateAction<string>>,
-    isMobileDevice: () => boolean,
 
 }
